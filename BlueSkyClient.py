@@ -1,0 +1,30 @@
+class BlueSkyClient:
+    def __init__(self, email, password):
+        self.client = Client()
+        self.profile = self.login(email, password)
+    
+    def login(self, email, password):
+        try:
+            profile = self.client.login(email, password)
+            print(f"Welcome, {profile.display_name}")
+            return profile
+        except Exception as e:
+            raise ValueError(f"Failed to login: {e}")
+
+    def post_message(self):
+        text = input("Post a message: ")
+        if text:
+            self.client.send_post(text)
+            print("Post sent!")
+        else:
+            print("No message to send.")
+
+    def print_followers(self):
+        followers_response = self.client.get_followers(actor=self.profile.handle)
+        followers = followers_response['followers']
+        if followers:
+            for i, follower in enumerate(followers):
+                print(f"{i+1}. {follower.display_name}")
+        else:
+            print("No followers found.")
+
