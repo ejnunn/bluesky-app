@@ -1,3 +1,5 @@
+from atproto import Client
+
 class BlueSkyClient:
     def __init__(self, email, password):
         self.client = Client()
@@ -28,3 +30,11 @@ class BlueSkyClient:
         else:
             print("No followers found.")
 
+    def print_follows(self):
+        follow_response = self.client.get_follows(actor=self.profile.handle)
+        follows = follow_response['follows']
+        if follows:
+            for i, follow in enumerate(follows):
+                print(f"{i+1}. {follow.display_name}")
+        else:
+            print("No follows found.")

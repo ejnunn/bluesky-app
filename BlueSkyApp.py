@@ -1,5 +1,14 @@
+import os
+from BlueSkyClient import BlueSkyClient
+
+from dotenv import load_dotenv
+
+
 class BlueSkyApp:
     def __init__(self):
+        '''
+            - Load email and password and spin up a client logged in to that account
+        '''
         load_dotenv()
         self.email = os.getenv('BLUESKY_EMAIL')
         self.password = os.getenv('BLUESKY_PASSWORD')
@@ -8,7 +17,7 @@ class BlueSkyApp:
         self.client = BlueSkyClient(self.email, self.password)
         
     def print_menu(self):
-        options = ['View Followers', 'Post a Message']
+        options = ['View Followers', 'Post a Message', 'View Follows']
         for i, option in enumerate(options):
             print(f"{i+1}. {option}")
 
@@ -21,6 +30,8 @@ class BlueSkyApp:
             self.client.print_followers()
         elif selection == '2':
             self.client.post_message()
+        elif selection == '3':
+            self.client.print_follows()
         else:
             print("Invalid selection. Please choose a valid option.")
 
