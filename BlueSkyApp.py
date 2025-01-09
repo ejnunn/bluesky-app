@@ -15,23 +15,30 @@ class BlueSkyApp:
         if not self.email or not self.password:
             raise ValueError("BLUESKY_EMAIL or BLUESKY_PASSWORD environment variable is missing.")
         self.client = BlueSkyClient(self.email, self.password)
+        self.menu_options = [   ("1", "View Follows", self.client.print_follows),
+                                ("2", "View Followers", self.client.print_followers),
+                                ("3", "Post Message", self.client.post_message),
+                            ]
         
     def print_menu(self):
-        options = ['View Followers', 'Post a Message', 'View Follows']
-        for i, option in enumerate(options):
-            print(f"{i+1}. {option}")
+        for number, name, _ in self.menu_options:
+            print(f"{number}. {name}")
+        print(f"Type 'q' to quit.")
 
     def run(self):
-        self.print_menu()
-        selection = input("Select an action: ")
+        while True:
+            self.print_menu()
+            choice = input("Select an action: ")
 
-        if selection == '1':
-            print("Getting your followers...")
-            self.client.print_followers()
-        elif selection == '2':
-            self.client.post_message()
-        elif selection == '3':
-            self.client.print_follows()
-        else:
-            print("Invalid selection. Please choose a valid option.")
+            matched_option = next((func for number, name, func in self.menu_options if choice == number or choice.lower() == name.lower()), None)
+
+            if matched_option:
+                matched_option()
+            elif choice.lower() == 'q':
+                break
+            else:
+                print("Invalid choice. Please try again.")
+            print("")
+
+
 
