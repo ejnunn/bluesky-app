@@ -17,7 +17,8 @@ class BlueSkyApp:
         self.client = BlueSkyClient(self.email, self.password)
         self.menu_options = [   ("1", "View Follows", self.client.get_follows),
                                 ("2", "View Followers", self.client.get_followers),
-                                ("3", "Post Message", self.client.post_message),
+                                ("3", "Get Follower Feed", self.client.get_follower_feed),
+                                ("4", "Post Message", self.client.post_message),
                             ]
         
     def print_menu(self):
@@ -33,7 +34,11 @@ class BlueSkyApp:
             matched_option = next((func for number, name, func in self.menu_options if choice == number or choice.lower() == name.lower()), None)
 
             if matched_option:
-                matched_option()
+                if choice == "3":
+                    actor = input(f' - actor: ')
+                    matched_option(actor)
+                else:
+                    matched_option()
             elif choice.lower() == 'q':
                 break
             else:

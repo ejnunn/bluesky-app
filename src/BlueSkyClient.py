@@ -23,12 +23,14 @@ class BlueSkyClient:
 
     def get_followers(self):
         followers_response = self.client.get_followers(actor=self.profile.handle)
+        print(f"DEBUG : followers_response")
         followers = followers_response['followers']
         if followers:
             for i, follower in enumerate(followers):
-                print(f"{i+1}. {follower.display_name}")
+                print(f"{i+1}. {follower}")
+                # print(f"{i+1}. {follower.display_name}")
         else:
-            return followers
+            print("No followers found.")
 
     def get_follows(self):
         follow_response = self.client.get_follows(actor=self.profile.handle)
@@ -38,3 +40,13 @@ class BlueSkyClient:
                 print(f"{i+1}. {follow.display_name}")
         else:
             print("No follows found.")
+
+
+    def get_follower_feed(self, actor: str, cursor: str = None, filter: str = None, limit: int = None):
+        response = self.client.get_actor_feed(actor, cursor, filter, limit)
+        print(f'DEBUG response = {feed_response}')
+
+        feed = response['feed']
+        print(f'DEBUG feed = {feed}')
+
+        
