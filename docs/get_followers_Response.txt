@@ -1,0 +1,19 @@
+did='did:plc:lp744fgcgc46ysawoux5kp4k'
+
+handle='ericnunn.bsky.social'
+
+associated=None avatar='https://cdn.bsky.app/img/avatar/plain/did:plc:lp744fgcgc46ysawoux5kp4kbafkreiaqq43x26k4i24njw2ospqqud4y2jpack37vhqvunliz3qsjzolu4@jpeg'
+
+description=None
+
+display_name='Eric Nunn'
+
+indexed_at='2025-01-07T19:42:00.043Z
+
+labels=[]
+
+viewer=ViewerState(blocked_by=False, blocking=None, blocking_by_list=None, followed_by='at://did:plc:lp744fgcgc46ysawoux5kp4k/app.bsky.graph.follow/3lf6pojm4v427', following='at://did:plc:bbupkboria7fgkl7d6y6si7r/app.bsky.graph.follow/3lf6rfecsbt2s', muted=False, muted_by_list=None, py_type='app.bsky.actor.defs#viewerState')
+
+py_type='app.bsky.actor.defs#profileView'
+
+createdAt='2024-11-10T05:30:35.983Z'
