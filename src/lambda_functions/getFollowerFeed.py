@@ -4,6 +4,7 @@ import os
 from atproto import Client
 from dotenv import load_dotenv
 
+
 def lambda_handler(event, context):
     print(event)
     try:
@@ -14,21 +15,28 @@ def lambda_handler(event, context):
         email = os.getenv('BLUESKY_EMAIL')
         password = os.getenv('BLUESKY_PASSWORD')
 
-    
+
     client = Client()
     profile = client.login(email, password)
 
-    client.send_post(text=event['text'])
-
+    actor = 'ericnunn.bsky.social'
+    print(f'Getting feed for {actor}...')
+    client_feed = client.get_author_feed(actor=actor,
+                    cursor=None,
+                    filter=None,
+                    limit=None)
+    print(f'Got the feed!')
     return {
         'statusCode': 200,
-        'body': json.dumps('Posted to Bluesky!')
+        'body': json.dumps(client_feed)
     }
 
+
 def main():
-    event = {'text': "Test text from an event."}
+    event = {'text': "Getting the feed from actor 'ericnunn.bsky.social'"}
     context = None
-    _ = lambda_handler(event, context)
+    response = lambda_handler(event, context)
+    print(f"response : {response}")
 
 if __name__ == '__main__':
     main()
