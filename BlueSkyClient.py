@@ -21,7 +21,7 @@ class BlueSkyClient:
         else:
             print("No message to send.")
 
-    def print_followers(self):
+    def get_followers(self):
         followers_response = self.client.get_followers(actor=self.profile.handle)
         followers = followers_response['followers']
         if followers:
@@ -30,7 +30,7 @@ class BlueSkyClient:
         else:
             print("No followers found.")
 
-    def print_follows(self):
+    def get_follows(self):
         follow_response = self.client.get_follows(actor=self.profile.handle)
         follows = follow_response['follows']
         if follows:
@@ -38,3 +38,13 @@ class BlueSkyClient:
                 print(f"{i+1}. {follow.display_name}")
         else:
             print("No follows found.")
+
+
+    def get_follower_feed(self, actor: str, cursor: str | None = None, filter: str | None = None, limit: int | None = None):
+        response = self.client.get_actor_feed(actor, cursor, filter, limit)
+        print(f'DEBUG response = {feed_response}')
+
+        feed = response['feed']
+        print(f'DEBUG feed = {feed}')
+
+        
