@@ -19,7 +19,7 @@ class BlueSkyApp:
         self.client = BlueSkyClient(self.email, self.password)
         self.menu_options = [   ("1", "View Follows", self.client.get_follows),
                                 ("2", "View Followers", self.client.get_followers),
-                                ("3", "Get Follower Feed", self.client.get_follower_feed),
+                                ("3", "Get Actor Feed", self.client.get_actor_feed),
                                 ("4", "Post Message", self.client.post_message),
                             ]
         
@@ -57,6 +57,7 @@ class BlueSkyApp:
             elif choice.lower() == 'q':
                 print(f"Goodbye, {self.client.profile.display_name}!")
                 break
+
             else:
                 print("Invalid choice. Please try again.")
             print("------------------------")

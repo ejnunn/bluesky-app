@@ -21,29 +21,39 @@ class BlueSkyClient:
         else:
             print("No message to send.")
 
+    def print_actors(self, actors):
+        """Prints follower information in a readable format."""
+        if not actors:
+            print("No actors found.")
+            return
+
+        print(f"Found {len(actors)} actor(s):\n")
+        for actor in actors:
+            print(f"🆔 DID: {actor.did}")
+            print(f"👤 Handle: @{actor.handle}")
+            print(f"📛 Display Name: {actor.display_name or 'N/A'}")
+            print(f"📅 Joined: {actor.createdAt}")
+            print(f"🔗 Avatar URL: {actor.avatar or 'N/A'}")
+            print(f"📝 Description: {actor.description or 'N/A'}")
+            print(f"👥 Following You: {'✅ Yes' if actor.viewer.followed_by else '❌ No'}")
+            print(f"📌 You Follow: {'✅ Yes' if actor.viewer.following else '❌ No'}")
+            print("-" * 50)
+
     def get_followers(self):
         followers_response = self.client.get_followers(actor=self.profile.handle)
-        print(f"DEBUG : followers_response")
+        
         followers = followers_response['followers']
-        if followers:
-            for i, follower in enumerate(followers):
-                print(f"{i+1}. {follower}")
-                # print(f"{i+1}. {follower.display_name}")
-        else:
-            print("No followers found.")
+        self.print_actors(followers)
 
     def get_follows(self):
         follow_response = self.client.get_follows(actor=self.profile.handle)
         follows = follow_response['follows']
-        if follows:
-            for i, follow in enumerate(follows):
-                print(f"{i+1}. {follow.display_name}")
-        else:
-            print("No follows found.")
+        
+        self.print_actors(follows)
 
 
-    def get_follower_feed(self, actor: str, cursor: str = None, filter: str = None, limit: int = None):
-        response = self.client.get_actor_feed(actor, cursor, filter, limit)
+    def get_actor_feed(self, actor: str, cursor: str = None, filter: str = None, limit: int = None):
+        response = self.client.get_author_feed(actor, cursor, filter, limit)
         print(f'DEBUG response = {feed_response}')
 
         feed = response['feed']
